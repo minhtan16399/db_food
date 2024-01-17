@@ -27,12 +27,26 @@ export default class rate_res extends Model {
     date_rate: {
       type: DataTypes.DATEONLY,
       allowNull: true
+    },
+    rate_id: {
+      autoIncrement: true,
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true
     }
   }, {
     sequelize,
     tableName: 'rate_res',
     timestamps: false,
     indexes: [
+      {
+        name: "PRIMARY",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "rate_id" },
+        ]
+      },
       {
         name: "user_id",
         using: "BTREE",

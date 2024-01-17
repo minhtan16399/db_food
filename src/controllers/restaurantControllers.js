@@ -3,9 +3,9 @@ import  initModels  from '../models/init-models.js';
 
 const conn = initModels(sequelize);
 
-const getUser = async (req, res) => {
+const getRestaurant = async (req, res) => {
     try {
-        let data = await conn.users.findAll();
+        let data = await conn.restaurant.findAll();
         res.send(data);
     } catch (error) {
         console.log(`error: ${error}`);
@@ -14,7 +14,7 @@ const getUser = async (req, res) => {
 
 const getLike = async (req, res) => {
     try {
-        let data = await conn.users.findAll({
+        let data = await conn.restaurant.findAll({
             include:['like_res']
         });
         res.send(data);
@@ -25,7 +25,7 @@ const getLike = async (req, res) => {
 
 const getRate = async (req, res)  => {
     try {
-        let data = await conn.users.findAll({
+        let data = await conn.restaurant.findAll({
             include: ['rate_res']
         });
         res.send(data)
@@ -34,10 +34,10 @@ const getRate = async (req, res)  => {
     }
 };
 
-const getLikeByUser = async (req, res) => {
-    let {user_id} = req.query;
+const getLikeByRestaurant = async (req, res) => {
+    let {res_id} = req.query;
     try {
-        let data = await conn.users.findByPk(user_id,{
+        let data = await conn.restaurant.findByPk(res_id,{
             include: ['like_res']
         });
         res.send(data)
@@ -46,10 +46,10 @@ const getLikeByUser = async (req, res) => {
     }
 };
 
-const getRateByUser = async (req, res) => {
-    let {user_id} = req.query;
+const getRateByRestaurant = async (req, res) => {
+    let {res_id} = req.query;
     try {
-        let data = await conn.users.findByPk(user_id,{
+        let data = await conn.restaurant.findByPk(res_id,{
             include: ['rate_res']
         });
         res.send(data)
@@ -58,22 +58,10 @@ const getRateByUser = async (req, res) => {
     }
 };
 
-const getOrder = async (req, res) => {
-    try {
-        let data = await conn.users.findAll({
-            include: ['orders']
-        });
-        res.send(data)
-    } catch (error) {
-        console.log(`error: ${error}`);
-    }
-}
-
 export {
-    getUser,
+    getRestaurant,
     getLike,
     getRate,
-    getLikeByUser,
-    getRateByUser,
-    getOrder
+    getLikeByRestaurant,
+    getRateByRestaurant
 }
